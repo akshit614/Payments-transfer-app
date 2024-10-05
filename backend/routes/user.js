@@ -1,11 +1,9 @@
 const express = require("express");
 const jwt = require("jsonwebtoken")
 const JWT_SECRET = require("../config");
-const { User } = require("../DB");
+const { User, Account } = require("../DB");
 const {z} = require("zod")
 const authMiddleware = require("../middlewares/user");
-const userMiddleware = require("../middlewares/user");
-
 const userRouter = express.Router()
 
 const userSchema = z.object({
@@ -39,9 +37,15 @@ userRouter.post('/signup', async (req,res) => {
         }
 
         const dbUser = await User.create(body);
+        const userId = dbUser._id;
+
+        await Account.create({
+            userId,
+            balance : 1 + Math.random() * 10000
+        })
 
         const token = jwt.sign({
-            userId : dbUser._id
+            userId
         }, JWT_SECRET)
 
 
@@ -83,6 +87,7 @@ userRouter.post('/signin',authMiddleware, async (req,res) => {
         },JWT_SECRET)
 
         res.json({
+            msg : "Signin Successfully",
             Token : token
         })
     }
@@ -99,10 +104,7 @@ const updateInfoSchema = z.object({
     password : z.string()
 })
 
-userRouter.put('/user',authMiddleware, async (req,res) => {
-    const password = req.body.password;
-    const firstname = req.body.firstname;
-    const lastname = req.body.lastname;
+userRouter.put('/update',authMiddleware, async (req,res) => {
 
     const result = updateInfoSchema.safeParse(req.body)
     if (!result.success) {
@@ -124,32 +126,5 @@ userRouter.put('/user',authMiddleware, async (req,res) => {
         res.status(403).json("" ,error);
     }
 })
-
-
-userRouter.get('/bulk', async (req,res) => {
-
-    const filter = req.query.filter || "";
-
-    const users = await User.find({
-        $or : [{
-            firstname : {
-                "$regex" : filter
-            }
-        },{
-            lastname : {
-                "$regex" : filter
-            }
-        }]
-    })
-
-    res.json({
-        user : users.map(user => ({
-            username : user.username,
-            firstname : user.firstname,
-            lastname : user.lastname
-        }))
-    })
-
-}) 
 
 module.exports = userRouter

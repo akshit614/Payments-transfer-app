@@ -28,12 +28,13 @@ const userMiddleware = async (req,res,next) => {
 
 }
 
+
 const authMiddleware = (req,res,next) => {
 
     try {
         const authheader = req.headers.authorization;
 
-        if (!authheader || !authheader.startswith('Bearer ')) { 
+        if (!authheader || !authheader.startsWith('Bearer ')) { 
             res.json({
                 msg : "Authorization header missing"
             })
@@ -55,7 +56,7 @@ const authMiddleware = (req,res,next) => {
             next();
 
         } catch (error) {
-            res.status(403).json(error);
+            res.status(403).json({error : error.message});
         }
 
 
@@ -64,8 +65,4 @@ const authMiddleware = (req,res,next) => {
     }
 
 }
-
-module.exports = {
-    userMiddleware,
-    authMiddleware
-}
+module.exports = authMiddleware
