@@ -66,36 +66,48 @@ const userSigninSchema = z.object({
     password : z.string()
 })
 
-userRouter.post('/signin',authMiddleware, async (req,res) => {
+userRouter.post('/signin', async (req,res) => {
 
-    const verifiedResult = userSigninSchema.safeParse(req.body)
+    try {
 
-    if (!verifiedResult.success) {
-        res.status(411).json({
-            msg : "Incorrect inputs"
+        const verifiedResult = userSigninSchema.safeParse(req.body)
+
+        if (!verifiedResult.success) {
+            return res.status(411).json({
+                msg : "Incorrect inputs"
+            })
+        }
+
+        const user = await User.findOne({
+            username : req.body.username,
+            password : req.body.password
         })
-    }
-
-    const user = await User.findOne({
-        username : req.body.username,
-        password : req.body.password
-    })
-
-    if (user) {
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        console.log(user.password);
+        console.log(req.body.password);
+        
+        const isPasswordValid = await req.body.password === user.password
+        console.log(isPasswordValid);
+        
+        if (!isPasswordValid) {
+        return res.status(401).json({ message: "Invalid password" });
+        }
         const token = jwt.sign({
             userId : user._id
         },JWT_SECRET)
-
-        res.json({
+    
+        return res.status(200).json({
             msg : "Signin Successfully",
             Token : token
         })
+
+    } catch (error) {
+        return res.status(500).json({
+            message : "Error while signing in " + error.message
+        }) 
     }
-
-    res.status(411).json({
-        message : "Error while signing in"
-    })
-
 })
 
 const updateInfoSchema = z.object({

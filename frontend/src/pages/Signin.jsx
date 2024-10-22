@@ -29,18 +29,13 @@ const Signin = () => {
           placeholder = "12345678" />
           <div className="pt-4">
           <Button onClick={async () => {
-            const USER_TOKEN = localStorage.getItem("token")
-            // console.log(USER_TOKEN);
-            const authStr = 'Bearer '.concat(USER_TOKEN);
-            await axios.post("http://localhost:2300/api/v1/user/signin", {
+            const res = await axios.post("http://localhost:2300/api/v1/user/signin", {
               username,
               password
-            }, {
-              headers: {
-                Authorization : authStr
-              }
             });
+            // console.log(res.data.Token);
             navigate("/")
+            localStorage.setItem("token",res.data.Token)
           }} label={"Sign In"} />
           </div>
           <BottomText label={"Don't have an account? "} buttonText={"Sign up"} to={"/signup"} />

@@ -35,7 +35,7 @@ const authMiddleware = (req,res,next) => {
         const authheader = req.headers.authorization;
 
         if (!authheader || !authheader.startsWith('Bearer ')) { 
-            res.json({
+            return res.json({
                 msg : "Authorization header missing"
             })
         }
@@ -43,7 +43,7 @@ const authMiddleware = (req,res,next) => {
         const token = authheader.split(' ')[1];
 
         if (!token) {
-            req.status(401).json({
+            return req.status(401).json({
                 msg : "Token Missing"
             })
         }
@@ -56,12 +56,12 @@ const authMiddleware = (req,res,next) => {
             next();
 
         } catch (error) {
-            res.status(403).json({error : error.message});
+            return res.status(403).json({error : error.message});
         }
 
 
     }catch(error) {
-        res.status(500).json({ msg: "Internal server error", error: error.message });
+        return res.status(500).json({ msg: "Internal server error", error: error.message });
     }
 
 }
