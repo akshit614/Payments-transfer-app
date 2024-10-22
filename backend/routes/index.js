@@ -30,7 +30,8 @@ mainRouter.get('/users', async (req,res) => {
         user : users.map(user => ({
             Username : user.username,
             firstname : user.firstname,
-            lastname : user.lastname
+            lastname : user.lastname,
+            _id: user._id
         }))
     })
     
