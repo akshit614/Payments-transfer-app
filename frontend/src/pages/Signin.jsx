@@ -34,7 +34,7 @@ const Signin = () => {
               password
             });
             // console.log(res.data.Token);
-            navigate("/")
+            navigate("/dashboard")
             localStorage.setItem("token",res.data.Token)
           }} label={"Sign In"} />
           </div>

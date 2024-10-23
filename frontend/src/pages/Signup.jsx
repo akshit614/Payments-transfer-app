@@ -47,7 +47,7 @@ const Signup = () => {
               password
             });
             localStorage.setItem("token", response.data.token)
-            navigate("/")
+            navigate("/dashboard")
           }} label={"Sign up"} />
           </div>
           <BottomText label={"Already have an account? "} buttonText={"Sign in"} to={"/signin"} />

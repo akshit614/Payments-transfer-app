@@ -7,11 +7,11 @@ import Transfer from './pages/TransferExchange';
 const router = createBrowserRouter([
     {
         path : "/",
-        element : <Dashboard />
+        element : <Signup />
     },
     {
-        path : "/signup",
-        element : <Signup />
+        path : "/dashboard",
+        element : <Dashboard />
     },
     {
         path : "/signin",
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
     {
         path : "/transfer",
         element : <Transfer />
+    },
+    {
+        path : "/signup",
+        element : <Signup />
     }
 ])
 
