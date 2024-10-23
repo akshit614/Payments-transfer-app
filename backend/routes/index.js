@@ -17,11 +17,13 @@ mainRouter.get('/users', async (req,res) => {
     const users = await User.find({
         $or : [{
             firstname : {
-                "$regex" : filter
+                "$regex" : filter,
+                "$options": "i" 
             }
         },{
             lastname : {
-                "$regex" : filter
+                "$regex" : filter,
+                "$options": "i" 
             }
         }]
     })
@@ -35,6 +37,6 @@ mainRouter.get('/users', async (req,res) => {
         }))
     })
     
-17})
+})
 
 module.exports = mainRouter
