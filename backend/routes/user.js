@@ -85,11 +85,8 @@ userRouter.post('/signin', async (req,res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        console.log(user.password);
-        console.log(req.body.password);
         
         const isPasswordValid = await req.body.password === user.password
-        console.log(isPasswordValid);
         
         if (!isPasswordValid) {
         return res.status(401).json({ message: "Invalid password" });
