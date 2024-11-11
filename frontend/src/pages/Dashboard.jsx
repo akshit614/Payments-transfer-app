@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Navbar  from "../components/Navbar"
 import ShowBalance  from "../components/ShowBalance"
 import Users  from "../components/Users"
-import axios from "axios"
+import { AxiosClient } from "../utils/axios"
 
 const Dashboard = () => {
 
@@ -13,17 +13,16 @@ const Dashboard = () => {
     const AuthStr = 'Bearer '.concat(USER_TOKEN);
 
     const fetchBalance = async() => {
-        const res = await axios.get("http://localhost:2300/api/v1/account/balance",{
+        const res = await AxiosClient.get("account/balance",{
             headers : {
                 Authorization : AuthStr
             }
         })
-        console.log(res)
         setBalance(res.data.balance)
     }
     
     const fetchName = async() => {
-        const res = await axios.get("http://localhost:2300/api/v1/users")
+        const res = await AxiosClient.get("/users")
         const users = res.data.user
         // console.log(users[users.length - 1].firstname)
         const name = users[users.length - 1].firstname

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useSearchParams } from 'react-router-dom';
-import axios from "axios";
 import InputBox from "../components/InputBox"
 import Button from "../components/Button"
+import { AxiosClient } from "../utils/axios";
 
 const Transfer = () => {
 
@@ -31,7 +31,7 @@ const Transfer = () => {
                 onChange={(e) => {setAmount(e.target.value)}}/>
               </div>
               <Button label={"Transfer"} onClick={async () => {
-                await axios.post("http://localhost:2300/api/v1/account/transfer", {
+                await AxiosClient.post("/account/transfer", {
                   to : id,
                   amount
                 },{

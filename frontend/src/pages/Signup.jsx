@@ -3,9 +3,9 @@ import Button from "../components/Button"
 import Header from "../components/Heading"
 import InputBox from "../components/InputBox"
 import SubHeading from "../components/SubHeading"
-import axios from "axios";
 import { useNavigate } from "react-router-dom"
 import BottomText from "../components/BottomText"
+import { AxiosClient } from "../utils/axios"
 
 const Signup = () => {
 
@@ -40,7 +40,7 @@ const Signup = () => {
           {console.log(username)}
           <div className="pt-4">
           <Button onClick={async () => {
-            const response = await axios.post("http://localhost:2300/api/v1/user/signup", {
+            const response = await AxiosClient.post("/user/signup", {
               username,
               firstname,
               lastname,

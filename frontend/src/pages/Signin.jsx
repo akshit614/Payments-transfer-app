@@ -6,6 +6,7 @@ import SubHeading from "../components/SubHeading"
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
 import BottomText from "../components/BottomText"
+import { AxiosClient } from "../utils/axios"
 
 
 const Signin = () => {
@@ -29,7 +30,7 @@ const Signin = () => {
           placeholder = "12345678" />
           <div className="pt-4">
           <Button onClick={async () => {
-            const res = await axios.post("http://localhost:2300/api/v1/user/signin", {
+            const res = await AxiosClient.post("/user/signin", {
               username,
               password
             });

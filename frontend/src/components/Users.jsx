@@ -4,6 +4,7 @@ import InputBox from "../components/InputBox"
 import Button from "../components/Button"
 
 import axios from "axios"
+import { AxiosClient } from "../utils/axios";
 
 const Users = () => {
 
@@ -11,7 +12,7 @@ const Users = () => {
   const [filter,setFilter] = useState("")
 
   useEffect(() => {
-    axios.get("http://localhost:2300/api/v1/users/?filter="+filter).then(res => {
+    AxiosClient.get("/users/?filter="+filter).then(res => {
       setUsers(res.data.user)
     })
 
