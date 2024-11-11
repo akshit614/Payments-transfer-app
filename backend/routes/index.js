@@ -10,6 +10,10 @@ const mainRouter = express.Router()
 mainRouter.use("/user", userRouter)
 mainRouter.use("/account", accountRouter)
 
+mainRouter.get('', (req,res) => {
+    res.status(200).json('Api is working fine')
+})
+
 mainRouter.get('/users', async (req,res) => {
 
     const filter = req.query.filter || "";

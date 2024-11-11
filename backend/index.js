@@ -11,7 +11,7 @@ app.use(cors())
 
 app.use(bodyparser.json())
 
-app.use('/api/v1', mainRouter)
+app.use('/', mainRouter)
 
 app.listen(PORT, () => {
     console.log(`Running on port ${PORT}`);
