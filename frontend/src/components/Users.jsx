@@ -37,7 +37,7 @@ function User({user}) {
 
   return <div className="flex justify-between pt-2">
     <div className="flex">
-      <div className="bg-indigo-300 rounded-full h-11 w-11 flex justify-center mt-1 mr-2">
+      <div className="bg-gray-400 rounded-full h-11 w-11 flex justify-center mt-1 mr-2">
         <div className="flex flex-col justify-center h-full text-2xl">
           {user.firstname[0]}
         </div>

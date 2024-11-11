@@ -8,5 +8,5 @@ function App(){
     </>
   )
 }
-
+// to create a history page that shows all the transaction of a account 
 export default App

@@ -1,7 +1,7 @@
 
 const Navbar = ({ username }) => {
     
-    return <div className="shadow-lg hover:shadow-indigo-500/60 h-20 flex justify-between rounded-full ">
+    return <div className="shadow-lg shadow-indigo-500/60 h-20 flex justify-between rounded-full ">
         <div className="font-bold text-3xl flex flex-col justify-center h-full ml-4 p-5">
             PayWay
         </div >
