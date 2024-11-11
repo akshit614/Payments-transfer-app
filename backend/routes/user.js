@@ -7,10 +7,10 @@ const authMiddleware = require("../middlewares/user");
 const userRouter = express.Router()
 
 const userSchema = z.object({
-    username : z.string(),
-    firstname : z.string(),
-    lastname : z.string(),
-    password : z.string()
+    username : z.string().min(1, "String cannot be empty"),
+    firstname : z.string().min(1, "String cannot be empty"),
+    lastname : z.string().min(1, "String cannot be empty"),
+    password : z.string().min(1, "String cannot be empty"),
 })
 
 userRouter.post('/signup', async (req,res) => {
@@ -62,8 +62,8 @@ userRouter.post('/signup', async (req,res) => {
 })
 
 const userSigninSchema = z.object({
-    username : z.string(),
-    password : z.string()
+    username : z.string().min(1, "String cannot be empty"),
+    password : z.string().min(1, "String cannot be empty")
 })
 
 userRouter.post('/signin', async (req,res) => {
